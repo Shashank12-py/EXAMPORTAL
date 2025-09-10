@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodePractice - Learn & Solve</title>
+    <style>
+        /* Reset and basic setup */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Main container */
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            opacity: 0.8;
+            font-size: 16px;
+        }
+
+        /* Content area */
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 600px;
+        }
+
+        /* Problem section */
+        .problem-section {
+            background: #f8f9fa;
+            padding: 30px;
+            border-right: 3px solid #e9ecef;
+        }
+
+        .problem-title {
+            color: #2c3e50;
+            font-size: 24px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+        }
+
+        .problem-description {
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #34495e;
+            font-size: 16px;
+        }
+
+        .examples {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #3498db;
+            margin-bottom: 20px;
+        }
+
+        .example-title {
+            color: #2c3e50;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            white-space: pre-line;
+        }
+
+        .constraints {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 5px solid #ffc107;
+        }
+
+        .constraints h4 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        .constraints li {
+            margin-left: 20px;
+            color: #856404;
+        }
+
+        /* Code section */
+        .code-section {
+            background: #1e1e1e;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .code-header {
+            background: #2d2d2d;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .language-selector {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .language-selector:hover {
+            background: #2980b9;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn-clear {
+            background: transparent;
+            color: #e74c3c;
+            border: 2px solid #e74c3c;
+        }
+
+        .btn-clear:hover {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .btn-save {
+            background: #27ae60;
+            color: white;
+        }
+
+        .btn-save:hover {
+            background: #219a52;
+        }
+
+        /* Editor area */
+        .editor-area {
+            flex: 1;
+            display: flex;
+        }
+
+        .line-numbers {
+            background: #2d2d2d;
+            padding: 20px 15px;
+            color: #7f8c8d;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            border-right: 2px solid #3498db;
+            min-width: 60px;
+            text-align: right;
+        }
+
+        .code-editor {
+            flex: 1;
+            background: #1e1e1e;
+            color: #ecf0f1;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            padding: 20px;
+            border: none;
+            outline: none;
+            resize: none;
+        }
+
+        /* Bottom controls */
+        .bottom-controls {
+            background: #34495e;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .btn-run {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.2s ease;
+        }
+
+        .btn-run:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #27ae60, #219a52);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+            
+            .problem-section {
+                border-right: none;
+                border-bottom: 3px solid #e9ecef;
+            }
+            
+            body {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <!-- Header -->
+        <div class="header">
+            <h1>CodePractice</h1>
+            <p>Practice coding problems and improve your skills</p>
+        </div>
+
+        <!-- Main content -->
+        <div class="content">
+            <!-- Problem section -->
+            <div class="problem-section">
+                <h2 class="problem-title">Tribonacci Sequence</h2>
+                
+                <div class="problem-description">
+                    <p>The Tribonacci sequence T<sub>n</sub> is defined as follows:</p>
+                    <p><strong>T₀ = 0, T₁ = 1, T₂ = 1</strong>, and <strong>T<sub>n</sub> = T<sub>n-1</sub> + T<sub>n-2</sub> + T<sub>n-3</sub></strong> for n > 2.</p>
+                    <p>Given n, return the value of T<sub>n</sub>.</p>
+                </div>
+
+                <div class="examples">
+                    <div class="example-title">Example 1:</div>
+                    <div class="code-block">Input: n = 4
+Output: 4
+Explanation:
+T₃ = 0 + 1 + 1 = 2
+T₄ = 1 + 1 + 2 = 4</div>
+
+                    <div class="example-title">Example 2:</div>
+                    <div class="code-block">Input: n = 25
+Output: 1389537</div>
+                </div>
+
+                <div class="constraints">
+                    <h4>Constraints:</h4>
+                    <ul>
+                        <li>0 ≤ n ≤ 37</li>
+                        <li>The answer fits in 32-bit integer</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Code section -->
+            <div class="code-section">
+                <div class="code-header">
+                    <select class="language-selector" id="languageSelect">
+                        <option value="python">Python 3</option>
+                        <option value="javascript">JavaScript</option>
+                        <option value="java">Java</option>
+                        <option value="cpp">C++</option>
+                    </select>
+                    
+                    <div class="action-buttons">
+                        <button class="btn btn-clear" id="clearBtn">Clear</button>
+                        <button class="btn btn-save" id="saveBtn">Save</button>
+                    </div>
+                </div>
+
+                <div class="editor-area">
+                    <div class="line-numbers" id="lineNumbers">1</div>
+                    <textarea 
+                        class="code-editor" 
+                        id="codeEditor"
+                        placeholder="# Start writing your solution here...
+def tribonacci(n):
+    # Your code here
+    pass"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom controls -->
+        <div class="bottom-controls">
+            <button class="btn-run" id="runBtn">
+                ▶ Test Code
+            </button>
+            <button class="btn-submit" id="submitBtn">
+                Submit Solution
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Get elements
+        const codeEditor = document.getElementById('codeEditor');
+        const lineNumbers = document.getElementById('lineNumbers');
+        const clearBtn = document.getElementById('clearBtn');
+        const runBtn = document.getElementById('runBtn');
+        const submitBtn = document.getElementById('submitBtn');
+        const languageSelect = document.getElementById('languageSelect');
+
+        // Update line numbers when typing
+        function updateLineNumbers() {
+            const lines = codeEditor.value.split('\n').length;
+            let numbers = '';
+            for (let i = 1; i <= lines; i++) {
+                numbers += i + '\n';
+            }
+            lineNumbers.textContent = numbers;
+        }
+
+        // Event listeners
+        codeEditor.addEventListener('input', updateLineNumbers);
+
+        clearBtn.addEventListener('click', function() {
+            if (confirm('Are you sure you want to clear all code?')) {
+                codeEditor.value = '';
+                updateLineNumbers();
+            }
+        });
+
+        runBtn.addEventListener('click', function() {
+            const code = codeEditor.value.trim();
+            if (code === '') {
+                alert('Please write some code first!');
+                return;
+            }
+            alert('🚀 Testing your code...\n\nThis would run your code against test cases!');
+        });
+
+        submitBtn.addEventListener('click', function() {
+            const code = codeEditor.value.trim();
+            if (code === '') {
+                alert('Please write some code before submitting!');
+                return;
+            }
+            alert('✅ Solution submitted!\n\nYour code would be evaluated against all test cases.');
+        });
+
+        languageSelect.addEventListener('change', function() {
+            const language = this.value;
+            let placeholder = '';
+            
+            switch(language) {
+                case 'python':
+                    placeholder = `# Start writing your solution here...
+def tribonacci(n):
+    # Your code here
+    pass`;
+                    break;
+                case 'javascript':
+                    placeholder = `// Start writing your solution here...
+function tribonacci(n) {
+    // Your code here
+}`;
+                    break;
+                case 'java':
+                    placeholder = `// Start writing your solution here...
+public class Solution {
+    public int tribonacci(int n) {
+        // Your code here
+    }
+}`;
+                    break;
+                case 'cpp':
+                    placeholder = `// Start writing your solution here...
+class Solution {
+public:
+    int tribonacci(int n) {
+        // Your code here
+    }
+};`;
+                    break;
+            }
+            
+            codeEditor.placeholder = placeholder;
+            if (codeEditor.value === '') {
+                codeEditor.value = placeholder;
+                updateLineNumbers();
+            }
+        });
+
+        // Initialize
+        updateLineNumbers();
+    </script>
+</body>
+</html>
