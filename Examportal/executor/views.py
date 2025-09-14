@@ -25,3 +25,7 @@ def execute_code(request):
             return JsonResponse({"error": str(e)}, status=500)
 
     return JsonResponse({"error": "Invalid request method"}, status=405)
+
+@csrf_exempt
+def index(request):
+    return JsonResponse({"index": "welcome to index page of exam portal"})
